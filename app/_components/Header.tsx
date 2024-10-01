@@ -31,7 +31,7 @@ const Header = () => {
                 <li>
                   <Link
                     className="text-gray-500 transition hover:text-gray-500/75"
-                    href="/submission"
+                    href="/grading"
                   >
                     Get Started
                   </Link>

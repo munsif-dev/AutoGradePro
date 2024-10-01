@@ -16,10 +16,10 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <div className="absolute top-0 left-0 z-0 ellipse"></div>
-
-          <main className="relative overflow-hidden">{children}</main>
+        <body className="">
+          <main className="relative  bg-purple-100 overflow-hidden">
+            {children}
+          </main>
         </body>
       </html>
     </ClerkProvider>

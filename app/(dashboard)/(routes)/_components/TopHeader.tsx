@@ -5,7 +5,7 @@ import { UserButton } from "@clerk/nextjs";
 
 const TopHeader = () => {
   return (
-    <div className="flex p-6 border-b justify-between items-center  md:justify-end">
+    <div className="flex p-[21px] border-b justify-between items-center  md:justify-end">
       <AlignJustify className="md:hidden" onClick={() => {}} />
       <div className="md:hidden flex items-center justify-center">
         <Image
