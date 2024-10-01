@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "AutoGradePro",
@@ -14,13 +14,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <div className="absolute top-0 left-0 z-0 ellipse"></div>
-        <Header />
-        <main className="relative overflow-hidden">{children}</main>
-        <Footer />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <div className="absolute top-0 left-0 z-0 ellipse"></div>
+
+          <main className="relative overflow-hidden">{children}</main>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

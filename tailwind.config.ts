@@ -16,13 +16,22 @@ const config: Config = {
       },
       colors: {
         "custom-purple": "#894799",
+        "light-2": "#894799",
+        "light-1": "#da7fc6",
+        "light-3": "#c9a7d3",
+        "dark-1": "#4d2c5b",
+        "dark-2": "#2a1a2f",
       },
       blur: {
         "500": "500px",
       },
 
       fontFamily: {
-        sans: ["Poppins", "sans-serif", "Pacifico"], // Set Poppins as the default sans font family
+        poppins: ["Poppins", "sans-serif"],
+        bubbler: ["Bubbler One", "sans-serif"],
+        biryani: ["Biryani", "sans-serif"],
+        pacifico: ["Pacifico", "cursive"],
+        sans: ["Poppins"], // Set Poppins as the default sans font family
       },
     },
   },

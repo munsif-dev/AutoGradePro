@@ -1,18 +1,22 @@
 import React from "react";
-import Demo from "@/components/Demo";
-import InputAndLink from "@/components/InputAndLink";
-import Pricing from "@/components/Pricing";
-import Hero from "@/components/Hero";
-import Features from "@/components/Features";
+import Demo from "@/app/_components/Demo";
+import InputAndLink from "@/app/_components/InputAndLink";
+import Pricing from "@/app/_components/Pricing";
+import Hero from "@/app/_components/Hero";
+import Features from "@/app/_components/Features";
+import Header from "./_components/Header";
+import Footer from "./_components/Footer";
 
 const page = () => {
   return (
     <>
+      <Header />
       <Hero />
       <Features />
       <InputAndLink />
       <Pricing />
       <Demo />
+      <Footer />
     </>
   );
 };
