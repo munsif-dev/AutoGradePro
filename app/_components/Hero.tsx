@@ -1,9 +1,61 @@
+"use client";
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import AnimatedText from "./AnimatedText";
+import { motion } from "framer-motion";
+import { Scale } from "lucide-react";
 
 const Hero = () => {
   return (
     <>
-      <div className="w-full flex justify-center items-center">
+      <div className="flex items-center justify-between w-full">
+        <motion.div
+          className="w-1/2 flex items-center justify-center mt-10 pr-8"
+          whileHover={{ scale: 1.04, rotate: "0.5deg" }}
+          whileTap={{ scale: 0.95, rotate: "-1deg" }}
+          transition={{ duration: 0.125, ease: "easeInOut" }}
+        >
+          <Image
+            width={526}
+            height={576}
+            alt="Hero Image"
+            src="/Hero_Image.png"
+          />
+        </motion.div>
+        <div className="w-1/2 flex flex-col  space-y-3">
+          <AnimatedText
+            type="h1"
+            text="Transforming Grading Into a Breeze!"
+            className="w-[845px]  text-[#894799] text-[80px] font-bold  leading-[90px] "
+          />
+          <p className="w-[600px]  text-[#894799] text-lg font-medium font-['Poppins'] leading-[30px]">
+            {`"Let's make grading more organized and effortless with our
+            streamlined platform, featuring the latest tools for efficient
+            assessment."`}
+          </p>
+
+          <div className="flex items-center self-start">
+            <Link
+              href="/grading"
+              target={"_blank"}
+              className="flex items-center bg-light-2 text-pink-50 py-2 px-6 rounded-lg 
+                  text-lg border-2 border-solid border-red font-semibold mr-4
+                   hover:bg-light-3 hover:text-dark-1  hover:border-dark-2"
+            >
+              Get Started
+            </Link>
+            <Link
+              href="https://youtu.be/9Gv2Xtb9NGc"
+              target={"_blank"}
+              className="ml-4 text-lg font-medium capitalize text-light-2 underline"
+            >
+              View Demo
+            </Link>
+          </div>
+        </div>
+      </div>
+      {/* <div className="w-full flex justify-center items-center">
         <div className="w-[1266px] h-[520px] relative">
           <div className="w-[845px] h-[583px] left-0 top-[34px] absolute">
             <div className="w-[845px] left-0 top-0 absolute text-[#894799] text-[80px] font-bold  leading-[90px]">
@@ -32,7 +84,7 @@ const Hero = () => {
             <img className="w-[526px] h-[576px]" src="Hero_Image.png" />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="w-full flex justify-center items-center mt-20 pt-16 ">
         <div className="w-[1194px] h-[162px] relative">
           <div className="left-[113px] top-0 absolute text-center text-[#894799] text-[40px] font-bold font-['Poppins']">

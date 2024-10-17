@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const InputAndLink = () => {
   return (
@@ -19,9 +20,12 @@ const InputAndLink = () => {
                 submissions are accurately assessed."
               </div>
             </div>
-            <img
+            <Image
+              alt="Generate Link"
+              width={552}
+              height={376}
               className="w-[552px]  left-[576px] top-0 absolute"
-              src="generateLink.png"
+              src="/generateLink.png"
             />
           </div>
           <div className="w-[1345px] h-[377px] left-0 top-[300px] absolute">
@@ -33,9 +37,12 @@ const InputAndLink = () => {
                 submissions are accurately assessed."
               </div>
             </div>
-            <img
+            <Image
+              width={684}
+              height={377}
+              alt="Student Upload"
               className="w-[684px]  left-0 top-0 absolute"
-              src="studentUpload.png"
+              src="/studentUpload.png"
             />
           </div>
         </div>

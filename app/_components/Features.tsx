@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import AnimatedText from "./AnimatedText";
 
 const Features = () => {
   return (
@@ -88,12 +90,12 @@ const Features = () => {
           </div>
 
           <div className="h-[166px] pl-8 pr-[2.19px] pb-px mb-5 left-0 top-[168px] absolute flex-col justify-start items-start gap-[15px] inline-flex">
-            <div className="w-[512px] text-[#696969] text-base font-medium font-['Poppins'] leading-[25px]">
-              "Seamlessly grade answers from various input formats, including
-              Word documents, text files, and handwritten scripts. Our platform
-              supports diverse file types to ensure all student submissions are
-              accurately assessed."
-            </div>
+            <AnimatedText
+              type="p"
+              text={`"Seamlessly grade answers from various input formats, including Word documents, text files, and handwritten scripts. Our platform supports diverse file types to ensure all student submissions are accurately assessed."`}
+              className="w-[512px] text-[#696969] text-base font-medium font-['Poppins'] leading-[25px]"
+            />
+
             <div className="w-[528px] text-[#696969] text-base font-medium font-['Poppins'] leading-[25px]">
               "An integrated support feature allows educators to get instant
               assistance, ensuring smooth and accurate grading every time!"

@@ -7,14 +7,14 @@ const FileUpload = () => {
   const [file, setFile] = React.useState(null);
   const onFileSelect = (file) => {
     if (file && file.size > 6000000) {
-      console.log("File size is too large");
+      alert("File size is too large");
       return;
     }
     setFile(file);
   };
   return (
     <div className="text-center">
-      <div className="flex flex-wrap items-center justify-center w-full bg-transparent ">
+      <div className="flex-col justify-center  space-y-2 w-full bg-transparent ">
         <label
           htmlFor="dropzone-file"
           className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-purple-50  hover:bg-purple-200 "
@@ -41,7 +41,7 @@ const FileUpload = () => {
               <span className="text-light-2">drop</span>
             </p>
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              SVG, PNG, JPG or GIF (MAX. 800x400px)
+              SVG, PNG, JPG or GIF (MAX 6MB)
             </p>
           </div>
           <input
@@ -53,16 +53,18 @@ const FileUpload = () => {
             }}
           />
         </label>
-        <div className="space-4 flex flex-wrap items-center justify-center">
+        <div className="w-full flex  space-x-2 justify-center items-center">
           <button
             disabled={!file}
-            className="w-[20%] px-4 py-2 mt-4 text-sm text-center font-medium 
+            className="px-4 py-2 mt-4 text-sm text-center font-medium 
            bg-light-2  hover:bg-light-1  text-white 
            rounded-full  disabled:bg-gray-600 "
           >
             Upload
           </button>
-          <FilePreview file={file} removeFile={() => setFile(null)} />
+          <div className="w-full">
+            <FilePreview file={file} removeFile={() => setFile(null)} />
+          </div>
         </div>
       </div>
     </div>

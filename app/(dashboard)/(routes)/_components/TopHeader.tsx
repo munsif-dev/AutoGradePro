@@ -1,7 +1,6 @@
 import { AlignJustify, User } from "lucide-react";
 import React from "react";
 import Image from "next/image";
-import { UserButton } from "@clerk/nextjs";
 
 const TopHeader = () => {
   return (
@@ -18,9 +17,7 @@ const TopHeader = () => {
           AutoGradePro
         </div>
       </div>
-      <div className="m-0 p-0">
-        <UserButton />
-      </div>
+      <div className="m-0 p-0"></div>
     </div>
   );
 };
