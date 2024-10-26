@@ -1,6 +1,9 @@
 "use client";
 import { useState } from "react";
-import { auth, provider } from "@/app/firebaseConfig";
+import {
+  auth,
+  provider,
+} from "@/app/(auth)/(routes)/_components/firebaseConfig";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 export default function Login() {
