@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import {
   auth,
   provider,
@@ -7,15 +8,17 @@ import {
 } from "@/app/(auth)/(routes)/_components/firebaseConfig";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("student");
   const [isLecturer, setIsLecturer] = useState(false);
-  const [additionalInfo, setAdditionalInfo] = useState("");
+  const [University, setUniversity] = useState("");
 
-  const handleRegister = async (e) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -25,15 +28,16 @@ export default function Register() {
         password
       );
       const user = userCredential.user;
-
+      console.log("User registered:", user);
       // Store user data in Firestore
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
         role: role,
-        additionalInfo: isLecturer ? additionalInfo : null,
+        University: isLecturer ? University : null,
       });
     } catch (error) {
       console.error("Error registering:", error);
+      toast.error("Error registering: " + (error as Error).message);
     }
   };
 
@@ -96,12 +100,12 @@ export default function Register() {
           {isLecturer && (
             <div className="mb-4">
               <label className="block text-sm font-medium">
-                Additional Info (Lecturer)
+                Working University
               </label>
               <input
                 type="text"
-                value={additionalInfo}
-                onChange={(e) => setAdditionalInfo(e.target.value)}
+                value={University}
+                onChange={(e) => setUniversity(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg"
               />
             </div>
@@ -122,6 +126,15 @@ export default function Register() {
           >
             Register with Google
           </button>
+        </div>
+
+        <div className="mt-4 text-center">
+          <p className="text-sm">
+            Already have an account?{" "}
+            <Link href="/sign-in" className="text-blue-500 underline">
+              Sign In
+            </Link>
+          </p>
         </div>
       </div>
     </div>
