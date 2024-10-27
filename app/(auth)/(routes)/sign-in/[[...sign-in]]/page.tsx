@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link"; // Import Link from next/link
 import {
   auth,
   provider,
@@ -69,6 +70,15 @@ export default function Login() {
           >
             Login with Google
           </button>
+        </div>
+
+        <div className="mt-4 text-center">
+          <p className="text-sm">
+            New user?{" "}
+            <Link href="/sign-up" className="text-blue-500 underline">
+              Sign Up
+            </Link>
+          </p>
         </div>
       </div>
     </div>
