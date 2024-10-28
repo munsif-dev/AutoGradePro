@@ -7,9 +7,10 @@ import {
   db,
 } from "@/app/(auth)/(routes)/_components/firebaseConfig";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import handleGoogleSignIn from "./_components/handleGoogleSignIn";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -17,6 +18,7 @@ export default function Register() {
   const [role, setRole] = useState("student");
   const [isLecturer, setIsLecturer] = useState(false);
   const [University, setUniversity] = useState("");
+  const [level, setLevel] = useState("");
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -30,30 +32,19 @@ export default function Register() {
       const user = userCredential.user;
       console.log("User registered:", user);
       // Store user data in Firestore
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        role: role,
-        University: isLecturer ? University : null,
-      });
+      if (user) {
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          role: role,
+          University: isLecturer ? University : null,
+          level: isLecturer ? level : null,
+        });
+      }
+      alert("User Registered Succesfully");
+      window.location.href = "/sign-in";
     } catch (error) {
       console.error("Error registering:", error);
-      toast.error("Error registering: " + (error as Error).message);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-
-      // Check if user exists in Firestore, if not, add them
-      const docRef = doc(db, "users", user.uid);
-      await setDoc(docRef, {
-        email: user.email,
-        role: "student", // Default role as student for Google sign-in
-      });
-    } catch (error) {
-      console.error("Error with Google Sign-In:", error);
+      alert(error);
     }
   };
 
@@ -83,7 +74,7 @@ export default function Register() {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium">Role</label>
+            <label className="block text-sm font-medium">Register as: </label>
             <select
               value={role}
               onChange={(e) => {
@@ -106,6 +97,19 @@ export default function Register() {
                 type="text"
                 value={University}
                 onChange={(e) => setUniversity(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg"
+              />
+            </div>
+          )}
+          {isLecturer && (
+            <div className="mb-4">
+              <label className="block text-sm font-medium">
+                Higher Studies
+              </label>
+              <input
+                type="text"
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
                 className="w-full px-4 py-2 border rounded-lg"
               />
             </div>

@@ -11,11 +11,13 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      alert("User Sign in Successful");
+      window.location.href = "/grading";
     } catch (error) {
       console.error("Error logging in:", error);
     }
