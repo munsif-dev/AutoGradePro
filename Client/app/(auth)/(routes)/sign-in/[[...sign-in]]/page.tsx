@@ -26,6 +26,8 @@ export default function Login() {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, provider);
+      alert("User Sign in Successful");
+      window.location.href = "/grading";
     } catch (error) {
       console.error("Error with Google Sign-In:", error);
     }
