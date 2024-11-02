@@ -14,6 +14,9 @@ urlpatterns = [
     path('submissions/create/', views.create_submission, name='create_submission'),
     path('grading-results/', views.get_grading_results, name='get_grading_results'),
     path('grading-results/create/', views.create_grading_result, name='create_grading_result'),
+    path('users/', views.get_all_users, name='get_all_users'),
+    path('users/create/', views.create_user, name='create_user'),
+
 ]
 
 
