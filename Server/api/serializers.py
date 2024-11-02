@@ -54,14 +54,21 @@ class AssignmentSerializer(serializers.ModelSerializer):
         model = Assignment
         fields = ['id', 'assignment_title', 'course', 'due_date', 'description', 'total_marks']
 
-
 class SubmissionSerializer(serializers.ModelSerializer):
-    assignment = AssignmentSerializer()
-    student = StudentSerializer()
-
     class Meta:
         model = Submission
-        fields = ['id', 'assignment', 'student', 'submission_file_path', 'submitted_at']
+        fields = [
+            'id',
+            'assignment',
+            'student',
+            'submission_file',
+            'submitted_at',
+            'grade',
+            'graded_at',
+            'feedback',
+            'status'
+        ]
+        read_only_fields = ['grade', 'graded_at', 'status']  # Prevent clients from setting these directly
 
 
 class GradingResultSerializer(serializers.ModelSerializer):
