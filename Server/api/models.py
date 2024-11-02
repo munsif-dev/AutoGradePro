@@ -15,9 +15,9 @@ class Lecturer(models.Model):
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)  # Specify User as the related model
     student_name = models.CharField(max_length=100)
-    student_email = models.EmailField()
-    year = models.IntegerField()
-    semester = models.IntegerField()
+    student_email = models.EmailField(null=True, blank=True)
+    year = models.IntegerField(null=True, blank=True)
+    semester = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.student_name
