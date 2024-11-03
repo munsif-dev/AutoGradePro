@@ -1,6 +1,5 @@
 import React from "react";
 import FileUpload from "./_components/FileUpload";
-import { FilePreview } from "./_components/FilePreview";
 
 const page = () => {
   return (
@@ -12,6 +11,9 @@ const page = () => {
 
       <div className="space-y-4">
         <FileUpload />
+        <button className="mt-4 px-6 py-2 bg-light-2 hover:bg-light-1 text-white rounded-full">
+          Grade
+        </button>
       </div>
     </div>
   );

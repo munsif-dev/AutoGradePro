@@ -92,7 +92,7 @@ def create_assignment(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# Submission Views
+# Retrieve all submissions
 @api_view(['GET'])
 def get_submissions(request):
     submissions = Submission.objects.all()
@@ -101,6 +101,7 @@ def get_submissions(request):
     serialized_submissions = SubmissionSerializer(submissions, many=True).data
     return Response(serialized_submissions)
 
+# Create a new submission
 @api_view(['POST'])
 def create_submission(request):
     serializer = SubmissionSerializer(data=request.data)
@@ -108,7 +109,6 @@ def create_submission(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 # GradingResult Views
 @api_view(['GET'])

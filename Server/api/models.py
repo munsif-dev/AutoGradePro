@@ -11,6 +11,8 @@ class Lecturer(models.Model):
     def __str__(self):
         return self.lecturer_name
 
+
+
 # Student model
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)  # Specify User as the related model
@@ -21,6 +23,7 @@ class Student(models.Model):
 
     def __str__(self):
         return self.student_name
+    
 
 # Course model
 class Course(models.Model):
@@ -31,6 +34,7 @@ class Course(models.Model):
 
     def __str__(self):
         return self.course_name
+
 
 # Assignment model
 class Assignment(models.Model):
@@ -44,14 +48,24 @@ class Assignment(models.Model):
         return self.assignment_title
 
 # Submission model
+
 class Submission(models.Model):
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name="submissions")
     student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="submissions")
-    submission_file_path = models.CharField(max_length=255)
+    submission_file = models.FileField(upload_to="submissions/")
     submitted_at = models.DateTimeField(auto_now_add=True)
+    grade = models.FloatField(null=True, blank=True)  # Store the grade after evaluation
+    graded_at = models.DateTimeField(null=True, blank=True)  # Track when the grading occurred
+    feedback = models.TextField(null=True, blank=True)  # Provide feedback or remarks
+    status = models.CharField(
+        max_length=20,
+        choices=[('Pending', 'Pending'), ('Graded', 'Graded')],
+        default='Pending'
+    )
 
     def __str__(self):
         return f"Submission {self.pk} for {self.assignment}"
+
 
 # GradingResult model
 class GradingResult(models.Model):
@@ -62,3 +76,6 @@ class GradingResult(models.Model):
 
     def __str__(self):
         return f"Grade: {self.grade} for Submission {self.submission.pk}"
+
+
+
