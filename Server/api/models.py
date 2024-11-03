@@ -13,17 +13,6 @@ class Lecturer(models.Model):
 
 
 
-
-# Course model
-class Course(models.Model):
-    course_name = models.CharField(max_length=100)
-    lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE, related_name="courses")
-    semester = models.IntegerField()
-    year = models.IntegerField()
-
-    def __str__(self):
-        return self.course_name
-
 # Student model
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)  # Specify User as the related model
@@ -35,6 +24,18 @@ class Student(models.Model):
     def __str__(self):
         return self.student_name
     
+
+# Course model
+class Course(models.Model):
+    course_name = models.CharField(max_length=100)
+    lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE, related_name="courses")
+    semester = models.IntegerField()
+    year = models.IntegerField()
+
+    def __str__(self):
+        return self.course_name
+
+
 # Assignment model
 class Assignment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="assignments")
@@ -75,3 +76,6 @@ class GradingResult(models.Model):
 
     def __str__(self):
         return f"Grade: {self.grade} for Submission {self.submission.pk}"
+
+
+

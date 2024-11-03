@@ -15,6 +15,7 @@ const FileUpload = () => {
       alert("File size is too large");
       return;
     }
+
     setFile(file);
     console.log("file: ", file);
   };
