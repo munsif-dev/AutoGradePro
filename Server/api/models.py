@@ -24,7 +24,7 @@ class Student(models.Model):
     def __str__(self):
         return self.student_name
     
-
+"""
 # Course model
 class Course(models.Model):
     course_name = models.CharField(max_length=100)
@@ -79,3 +79,4 @@ class GradingResult(models.Model):
 
 
 
+"""
