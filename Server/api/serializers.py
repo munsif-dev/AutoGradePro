@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User  # Import Django's built-in User model
-from .models import Lecturer, Student, Course, Assignment, Submission, GradingResult
-
+from .models import Lecturer
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)  # Hide password in the response
@@ -30,50 +29,3 @@ class LecturerSerializer(serializers.ModelSerializer):
         model = Lecturer
         fields = ['user', 'lecturer_name', 'lecturer_email', 'department']
 
-
-class StudentSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
-    class Meta:
-        model = Student
-        fields = ['user', 'student_name', 'student_email', 'year', 'semester']
-
-
-class CourseSerializer(serializers.ModelSerializer):
-    lecturer = LecturerSerializer()
-
-    class Meta:
-        model = Course
-        fields = ['id', 'course_name', 'lecturer', 'semester', 'year']
-
-
-class AssignmentSerializer(serializers.ModelSerializer):
-    course = CourseSerializer()
-
-    class Meta:
-        model = Assignment
-        fields = ['id', 'assignment_title', 'course', 'due_date', 'description', 'total_marks']
-
-class SubmissionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Submission
-        fields = [
-            'id',
-            'assignment',
-            'student',
-            'submission_file',
-            'submitted_at',
-            'grade',
-            'graded_at',
-            'feedback',
-            'status'
-        ]
-        read_only_fields = ['grade', 'graded_at', 'status']  # Prevent clients from setting these directly
-
-
-class GradingResultSerializer(serializers.ModelSerializer):
-    submission = SubmissionSerializer()
-
-    class Meta:
-        model = GradingResult
-        fields = ['id', 'submission', 'grade', 'feedback', 'graded_at']
