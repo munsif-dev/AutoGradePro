@@ -24,7 +24,7 @@ class LecturerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lecturer
-        fields = ['user', 'lecturer_name', 'lecturer_email']
+        fields = ['user', 'University', 'Department']
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')  # Extract user data
