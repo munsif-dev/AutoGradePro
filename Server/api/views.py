@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from .serializers import UserSerializer, LecturerSerializer
 
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 def lecturer_list(request):
     if request.method == 'GET':
         lecturers = Lecturer.objects.all()
