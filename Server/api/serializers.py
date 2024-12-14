@@ -3,7 +3,7 @@ from django.contrib.auth.models import User  # Import Django's built-in User mod
 from .models import Lecturer
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Lecturer, Student
+from .models import Lecturer, Student, Module, Assignment, Submission
 
 
 # UserSerializer (handles user creation and updating)
@@ -46,3 +46,34 @@ class StudentSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**user_data)  # Create User instance
         student = Student.objects.create(user=user, **validated_data)  # Create Student instance
         return student
+
+
+# Serializer for the Module model
+class ModuleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Module
+        fields = ['id', 'name', 'code', 'description', 'lecturer']
+        extra_kwargs = {
+            'lecturer': {'read_only': True},
+        }
+
+# Serializer for the Assignment model
+class AssignmentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Assignment
+        fields = ['id', 'title', 'description', 'due_date', 'module']
+        extra_kwargs = {
+            'module': {'read_only': True},
+        }
+
+# Serializer for the Submission model
+class SubmissionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Submission
+        fields = ['id', 'assignment', 'file', 'uploaded_at']
+        extra_kwargs = {
+            'assignment': {'read_only': True},
+        }
