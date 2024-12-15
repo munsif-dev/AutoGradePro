@@ -77,3 +77,5 @@ class SubmissionSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'assignment': {'read_only': True},
         }
+
+
