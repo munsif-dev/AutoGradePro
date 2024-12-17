@@ -24,6 +24,11 @@ urlpatterns = [
     # Admin route
     path("admin/", admin.site.urls),
 
+    ## why do we need to include the following routes?
+    # Include the JWT Token Authentication routes to get and refresh tokens
+    # If this is not included, the JWT Token Authentication will not work
+    # it is good to include these routes in the main urls.py file
+
     # JWT Token Authentication routes
     path("api/token/", TokenObtainPairView.as_view(), name="get_token"),  # Obtain JWT Token
     path("api/token/refresh/", TokenRefreshView.as_view(), name="refresh"),  # Refresh JWT Token
@@ -35,6 +40,6 @@ urlpatterns = [
     # API Auth routes
     path("api-auth/", include("rest_framework.urls")),
 
-    # Include app-specific URLs
+    # Include app-specific URLs , these are used to create delete, update and retrieve modules assignments, submissions
     path("api/", include("api.urls")),
 ]
