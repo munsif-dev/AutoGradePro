@@ -54,29 +54,36 @@ class ModuleDeleteView(generics.DestroyAPIView):
         return Module.objects.none()  # Prevent unauthorized users
     
 
-
 class AssignmentListCreate(generics.ListCreateAPIView):
     """
     API view to list and create assignments for a specific module.
     Only lecturers associated with the module can perform these actions.
     """
     serializer_class = AssignmentSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [AllowAny]  # Ensure only authenticated users can access this view
 
     def get_queryset(self):
-        user = self.request.module.lecturer
-        if hasattr(user.module.lecture, 'lecturer'):  # Check if the user is a lecturer
-            # Fetch assignments for modules owned by the lecturer
-            return Assignment.objects.filter(module__lecturer=user.lecturer)
-        return Assignment.objects.none()  # Return empty queryset for unauthorized users
+        user = self.request.user
+        module_id = self.request.query_params.get('module_id')  # Get the module_id from the query parameters
+
+        if module_id and hasattr(user, 'lecturer'):  # Check if the user is a lecturer
+            # Fetch assignments for the specified module owned by the lecturer
+            return Assignment.objects.filter(module__lecturer=user.lecturer, module__id=module_id)
+        
+        # If no module_id or unauthorized access, return empty queryset
+        return Assignment.objects.none()
 
     def perform_create(self, serializer):
+        """
+        Create a new assignment under the module the lecturer owns.
+        """
         user = self.request.user
         module_id = self.request.data.get("module_id")
         try:
             # Check if the lecturer owns the specified module
             module = Module.objects.get(id=module_id, lecturer=user.lecturer)
-            serializer.save(module=module)  # Save assignment with the module
+            # Save the assignment with the module
+            serializer.save(module=module)
         except Module.DoesNotExist:
             raise Exception("You do not have permission to add assignments to this module.")
 
@@ -86,13 +93,16 @@ class AssignmentListView(generics.ListAPIView):
     """
     serializer_class = AssignmentSerializer
     permission_classes = [AllowAny]
-
     def get_queryset(self):
-        user = self.request.user
-        if hasattr(user, 'lecturer'):  # Check if the user is a lecturer
-            # Fetch assignments for modules owned by the lecturer
-            return Assignment.objects.filter(module__lecturer=user.lecturer)
-        return Assignment.objects.none()  # Return empty queryset for unauthorized users
+            user = self.request.user
+            module_id = self.request.query_params.get('module_id')  # Get the module_id from the query parameters
+
+            if module_id and hasattr(user, 'lecturer'):  # Check if the user is a lecturer
+                # Fetch assignments for the specified module owned by the lecturer
+                return Assignment.objects.filter(module__lecturer=user.lecturer, module__id=module_id)
+            
+            # If no module_id or unauthorized access, return empty queryset
+            return Assignment.objects.none()
 
 class AssignmentDeleteView(generics.DestroyAPIView):
     """
