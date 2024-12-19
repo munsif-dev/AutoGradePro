@@ -42,6 +42,20 @@ class ModuleListView(generics.ListAPIView):
             return Module.objects.filter(lecturer=user.lecturer)
         return Module.objects.none()  # Return empty queryset if not a lecturer
     
+class ModuleDetailView(generics.RetrieveAPIView):
+    """
+    API view to fetch a specific module.
+    Only the lecturer who owns the module can access this view.
+    """
+    serializer_class = ModuleSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        if hasattr(user, 'lecturer'):  # Check if the user is a lecturer
+            return Module.objects.filter(lecturer=user.lecturer)
+        return Module.objects.none()  # Prevent unauthorized users
+    
 class ModuleDeleteView(generics.DestroyAPIView):
     serializer_class = ModuleSerializer
     permission_classes = [IsAuthenticated]
@@ -60,7 +74,7 @@ class AssignmentListCreate(generics.ListCreateAPIView):
     Only lecturers associated with the module can perform these actions.
     """
     serializer_class = AssignmentSerializer
-    permission_classes = [AllowAny]  # Ensure only authenticated users can access this view
+    permission_classes = [IsAuthenticated]  # Ensure only authenticated users can access this view
 
     def get_queryset(self):
         user = self.request.user
@@ -92,7 +106,7 @@ class AssignmentListView(generics.ListAPIView):
     API view to fetch all assignments for the modules owned by the authenticated lecturer.
     """
     serializer_class = AssignmentSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def get_queryset(self):
             user = self.request.user
             module_id = self.request.query_params.get('module_id')  # Get the module_id from the query parameters
@@ -110,7 +124,7 @@ class AssignmentDeleteView(generics.DestroyAPIView):
     Only the lecturer associated with the module can delete its assignments.
     """
     serializer_class = AssignmentSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         user = self.request.user
