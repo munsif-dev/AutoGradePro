@@ -58,15 +58,18 @@ class ModuleSerializer(serializers.ModelSerializer):
             'lecturer': {'read_only': True},
         }
 
-# Serializer for the Assignment model
+
 class AssignmentSerializer(serializers.ModelSerializer):
+    module_id = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = Assignment
-        fields = ['id', 'title', 'description', 'due_date', 'module']
+        fields = ['id', 'title', 'description', 'due_date', 'module', 'module_id']
         extra_kwargs = {
             'module': {'read_only': True},
+            'module_id': {'write_only': True},
         }
+
 
 # Serializer for the Submission model
 class SubmissionSerializer(serializers.ModelSerializer):
